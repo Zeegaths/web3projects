@@ -24,8 +24,8 @@ describe("Todo List", function () {
       const todos = await todolist.getTodos();
 
       expect(todos).with.lengthOf(1);
-      expect(todos[0]).eq("clean");
-      expect(todos[1]).eq("clothes");
+      expect(todos[0][0]).eq("clean");
+      expect(todos[0][1]).eq("clothes");
   
     });  
   });
