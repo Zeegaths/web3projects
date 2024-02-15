@@ -25,8 +25,53 @@ describe("Todo List", function () {
 
       expect(todos).with.lengthOf(1);
       expect(todos[0][0]).eq("clean");
-      expect(todos[0][1]).eq("clothes");
-  
+      expect(todos[0][1]).eq("clothes");  
+    });  
+  });
+
+
+
+  describe("update Todo List", function () {
+    it("Should update todo lists", async function () {
+      const { todolist } = await loadFixture(deployTodoList);
+      await todolist.createTodos("dirty", "clothes");
+
+      await todolist.updateTodos(0, "clean", "clothes");
+      const tododo = await todolist.todos(0);
+      // const todos = await todolist.getTodos();      
+      
+      expect(tododo.Title).to.equal("clean"); 
+      expect(tododo.description).to.equal("clothes");
+      // expect(todos[2]).to.deep.equal("clothes");     
+    });  
+  });
+
+  describe("delete Todos", function () {
+    it("Should delete todo lists", async function () {
+      const { todolist } = await loadFixture(deployTodoList);
+      await todolist.createTodos("dirty", "clothes");
+
+      await todolist.deleteTodos(0);
+      const tododo = await todolist.todos(0);
+      // const todos = await todolist.getTodos();      
+      
+      expect(tododo.Title).to.equal(""); 
+      expect(tododo.description).to.equal(""); 
+      // expect(todos[2]).to.deep.equal("clothes");     
+    });  
+  });
+
+  describe("toggle Todos", function () {
+    it("Should toggle todo lists", async function () {
+      const { todolist } = await loadFixture(deployTodoList);
+      await todolist.createTodos("dirty", "clothes");
+
+      await todolist.toggleTodos(0);
+      const tododo = await todolist.todos(0);
+      const tx = tododo[2];
+      // const todos = await todolist.getTodos();    
+      expect(tx).to.equal(true);
+          
     });  
   });
 });

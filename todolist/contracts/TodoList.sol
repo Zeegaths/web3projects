@@ -9,7 +9,7 @@ contract TodoList {
         bool completed;
     }
 //array of structs
-    Todo[] todos;
+    Todo[] public todos;
 
 //add items to the array
     function createTodos(string memory _title, string memory _description) public {
@@ -23,6 +23,8 @@ contract TodoList {
     function getTodos() public view returns(Todo[] memory) {
         return todos;
     }
+
+    
 
 //false to true
     function toggleTodos(uint _index) external {
@@ -39,5 +41,9 @@ contract TodoList {
     function deleteTodos(uint _index) external {
         delete todos[_index];
     }
+
+    // function myTodo(uint _index) external view returns (Todo memory ){
+    //     return todos[_index];
+    // }
 
 }
