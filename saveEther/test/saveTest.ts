@@ -89,7 +89,7 @@ it("send from savings.", async function() {
   expect(contractBalanceAfter).to.equal(depositAmount - sendAmount); // Contract balance should be reduced after sending
 });
 
-it("return savings balance", async function() {
+it("return contract balance", async function() {
   const depositAmount1 = ethers.parseEther("1.0");   
   const depositAmount2 = ethers.parseEther("1.0");   
   const depositAmount3 = ethers.parseEther("1.0");   
@@ -108,6 +108,27 @@ it("return savings balance", async function() {
 
   // Expect the ownerSavings to be the sum of all deposit amounts
   expect(ownerSavings).to.equal(depositAmount1 + depositAmount2 + depositAmount3);
+});
+
+it("return  balance", async function() {
+  const depositAmount1 = ethers.parseEther("1.0");   
+  const depositAmount2 = ethers.parseEther("2.0");   // Different amount for the second account
+  const depositAmount3 = ethers.parseEther("1.0");   
+
+  // Deposit amounts from different accounts
+  const txDeposit1 = await saveEther.connect(addr1).deposit({value: depositAmount1});
+  const txDeposit2 = await saveEther.connect(addr2).deposit({value: depositAmount2});
+  const txDeposit3 = await saveEther.deposit({value: depositAmount3});
+
+  // Wait for transactions to be mined
+  await txDeposit1.wait();
+  await txDeposit2.wait();
+  await txDeposit3.wait();
+
+  const contractBalance = await saveEther.checkContractBal();
+
+  // Expect the contract balance to be the sum of all deposit amounts
+  expect(contractBalance).to.equal(depositAmount1.add(depositAmount2).add(depositAmount3));
 });
 
 });
