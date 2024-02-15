@@ -89,7 +89,7 @@ it("send from savings.", async function() {
   expect(contractBalanceAfter).to.equal(depositAmount - sendAmount); // Contract balance should be reduced after sending
 });
 
-it("return contract balance", async function() {
+it("return account balance", async function() {
   const depositAmount1 = ethers.parseEther("1.0");   
   const depositAmount2 = ethers.parseEther("1.0");   
   const depositAmount3 = ethers.parseEther("1.0");   
@@ -110,7 +110,7 @@ it("return contract balance", async function() {
   expect(ownerSavings).to.equal(depositAmount1 + depositAmount2 + depositAmount3);
 });
 
-it("return  balance", async function() {
+it("return contract balance", async function() {
   const depositAmount1 = ethers.parseEther("1.0");   
   const depositAmount2 = ethers.parseEther("2.0");   // Different amount for the second account
   const depositAmount3 = ethers.parseEther("1.0");   
