@@ -89,5 +89,25 @@ it("send from savings.", async function() {
   expect(contractBalanceAfter).to.equal(depositAmount - sendAmount); // Contract balance should be reduced after sending
 });
 
+it("return savings balance", async function() {
+  const depositAmount1 = ethers.parseEther("1.0");   
+  const depositAmount2 = ethers.parseEther("1.0");   
+  const depositAmount3 = ethers.parseEther("1.0");   
+
+  // Deposit three different amounts
+  const txDeposit1 = await saveEther.deposit({value: depositAmount1});
+  const txDeposit2 = await saveEther.deposit({value: depositAmount2});
+  const txDeposit3 = await saveEther.deposit({value: depositAmount3});
+
+  // Wait for transactions to be mined
+  await txDeposit1.wait();
+  await txDeposit2.wait();
+  await txDeposit3.wait();
+
+  const ownerSavings = await saveEther.checkSavings(await owner.getAddress());
+
+  // Expect the ownerSavings to be the sum of all deposit amounts
+  expect(ownerSavings).to.equal(depositAmount1 + depositAmount2 + depositAmount3);
+});
 
 });
