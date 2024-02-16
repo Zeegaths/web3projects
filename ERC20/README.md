@@ -1,13 +1,29 @@
 # Sample Hardhat Project
+This projecst creates an ERC token, uses an interface for interaction and tests the implementation using hardhat.
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+To setup the hardhat environment run this in your project folder: 
 
-Try running some of the following tasks:
-
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.ts
+```sol
+npm init --y
+npm install --save-dev hardhat 
+npx hardhat init
 ```
+
+To compile: 
+```sol
+npx hardhat compile
+``` 
+
+To deploy(I used the local environment).Use the correct file name
+```sol
+npx hardhat run scripts/deploy.ts - local environment
+npx hardhat run --network sepolia - testnet
+``` 
+
+and finally test: 
+```sol
+npx hardhat test 
+``` 
+
+
+
